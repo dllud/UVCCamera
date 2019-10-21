@@ -51,11 +51,19 @@
         android:layout_alignRight="@+id/camera_view"
         android:src="@drawable/border" />
 
-    <LinearLayout
+  <LinearLayout
+        android:id="@+id/service_buttons"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/camera_view"
-        android:gravity="bottom|center_horizontal" >
+        android:layout_alignParentLeft="true"
+        android:gravity="center_horizontal" >
+
+        <ToggleButton
+            android:id="@+id/preview_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton" />
 
         <Button
             android:id="@+id/start_button"
@@ -70,28 +78,12 @@
             android:text="Stop service" />
     </LinearLayout>
 
-    <ToggleButton
-        android:id="@+id/preview_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/camera_view"
-        android:layout_gravity="center_horizontal"
-        android:text="ToggleButton" />
-
-    <SurfaceView
-        android:id="@+id/camera_view_sub"
-        android:layout_margin="5dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignRight="@+id/camera_view"
-        android:layout_alignTop="@+id/camera_view" />
-
     <ImageButton
         android:id="@+id/record_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/camera_view"
-        android:layout_below="@id/preview_button"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/service_buttons"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginTop="@dimen/vertical_margin"
         android:background="@null"
@@ -101,7 +93,7 @@
         android:id="@+id/still_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/camera_view"
+        android:layout_alignParentLeft="true"
         android:layout_below="@id/record_button"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginTop="@dimen/vertical_margin"

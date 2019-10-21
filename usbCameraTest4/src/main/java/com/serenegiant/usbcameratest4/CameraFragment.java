@@ -71,8 +71,6 @@ public class CameraFragment extends BaseFragment {
 	private ImageButton mRecordButton;
 	private ImageButton mStillCaptureButton;
 	private CameraViewInterface mCameraView;
-	private SurfaceView mCameraViewSub;
-	private boolean isSubView;
 
 	public CameraFragment() {
 		if (DEBUG) Log.v(TAG, "Constructor:");
@@ -116,8 +114,6 @@ public class CameraFragment extends BaseFragment {
 		mStillCaptureButton.setEnabled(false);
 		mCameraView = (CameraViewInterface)rootView.findViewById(R.id.camera_view);
 		mCameraView.setAspectRatio(DEFAULT_WIDTH / (float)DEFAULT_HEIGHT);
-		mCameraViewSub = (SurfaceView)rootView.findViewById(R.id.camera_view_sub);
-		mCameraViewSub.setOnClickListener(mOnClickListener);
 		return rootView;
 	}
 
@@ -133,8 +129,6 @@ public class CameraFragment extends BaseFragment {
 		if (DEBUG) Log.v(TAG, "onPause:");
 		if (mCameraClient != null) {
 			mCameraClient.removeSurface(mCameraView.getSurface());
-			mCameraClient.removeSurface(mCameraViewSub.getHolder().getSurface());
-			isSubView = false;
 		}
 		mUSBMonitor.unregister();
 		enableButtons(false);
@@ -243,8 +237,6 @@ public class CameraFragment extends BaseFragment {
 		public void onConnect() {
 			if (DEBUG) Log.v(TAG, "onConnect:");
 			mCameraClient.addSurface(mCameraView.getSurface(), false);
-			mCameraClient.addSurface(mCameraViewSub.getHolder().getSurface(), false);
-			isSubView = true;
 			enableButtons(true);
 			setPreviewButton(true);
 			// start UVCService
@@ -287,15 +279,6 @@ public class CameraFragment extends BaseFragment {
 					mCameraClient = null;
 				}
 				enableButtons(false);
-				break;
-			case R.id.camera_view_sub:
-				if (DEBUG) Log.v(TAG, "onClick:sub view");
-				if (isSubView) {
-					mCameraClient.removeSurface(mCameraViewSub.getHolder().getSurface());
-				} else {
-					mCameraClient.addSurface(mCameraViewSub.getHolder().getSurface(), false);
-				}
-				isSubView = !isSubView;
 				break;
 			case R.id.record_button:
 				if (DEBUG) Log.v(TAG, "onClick:record");
@@ -346,10 +329,8 @@ public class CameraFragment extends BaseFragment {
 			if (DEBUG) Log.v(TAG, "onCheckedChanged:" + isChecked);
 			if (isChecked) {
 				mCameraClient.addSurface(mCameraView.getSurface(), false);
-//				mCameraClient.addSurface(mCameraViewSub.getHolder().getSurface(), false);
 			} else {
 				mCameraClient.removeSurface(mCameraView.getSurface());
-//				mCameraClient.removeSurface(mCameraViewSub.getHolder().getSurface());
 			}
 		}
 	};
