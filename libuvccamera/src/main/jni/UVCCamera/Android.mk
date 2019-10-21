@@ -63,4 +63,5 @@ LOCAL_SRC_FILES := \
 		serenegiant_usb_UVCCamera.cpp
 
 LOCAL_MODULE    := UVCCamera
+LOCAL_DISABLE_FATAL_LINKER_WARNINGS := true
 include $(BUILD_SHARED_LIBRARY)
