@@ -50,6 +50,9 @@ android {
 			jni.srcDirs = []
 		}
 	}
+  lintOptions {
+      abortOnError false
+  }
 }
 
 tasks.withType(JavaCompile) {
